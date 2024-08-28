@@ -40,5 +40,12 @@ const peliculasSchema = new mongoose.Schema(
   { timestamps: true, collection: 'peliculas' }
 )
 
+peliculasSchema.pre('save', function (next) {
+  this.plataformas = [
+    ...new Set(this.plataformas.map((plataforma) => plataforma.toString()))
+  ]
+  next()
+})
+
 const Pelicula = mongoose.model('Pelicula', peliculasSchema, 'peliculas')
 module.exports = Pelicula
