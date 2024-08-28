@@ -24,13 +24,13 @@ Esta API permite gestionar una base de datos de películas y plataformas de stre
 1. Clona este repositorio:
 
    ```bash
-   git clone https://github.com/tuusuario/tu-repositorio.git
+   git clone https://github.com/CYNNNIA/pro6.git
    ```
 
 2. Navega al directorio del proyecto:
 
    ```bash
-   cd nombre-del-proyecto
+   cd pro6
    ```
 
 3. Instala las dependencias:
@@ -48,7 +48,7 @@ Esta API permite gestionar una base de datos de películas y plataformas de stre
    ```
 
    - `DB_URL`: La URL de conexión a tu base de datos MongoDB.
-   - `PORT`: El puerto en el que quieres que corra tu servidor (por defecto 3000).
+   - `PORT`: http://localhost:3000
 
 2. Inicia el servidor:
 
@@ -84,10 +84,10 @@ Realiza una solicitud GET a `/api/v1/peliculas` para obtener la lista completa d
 [
   {
     "_id": "64fcb2a5a5c3b5b12e9d354a",
-    "nombre": "Inception",
+    "nombre": "Braveheart",
     "categoria": "aventura",
     "plataformas": ["64fcb2a5a5c3b5b12e9d354b"],
-    "precio": 9.99,
+    "precio": 10,
     "createdAt": "2024-08-27T12:00:00.000Z",
     "updatedAt": "2024-08-27T12:00:00.000Z"
   }
