@@ -69,17 +69,40 @@ const postPelicula = async (req, res, next) => {
     return res.status(400).json({ error: error.message })
   }
 }
-
 const putPelicula = async (req, res, next) => {
   try {
     const { id } = req.params
-    const peliculaUpdate = await Pelicula.findByIdAndUpdate(id, req.body, {
-      new: true,
-      runValidators: true
-    }).populate('plataformas')
-    if (!peliculaUpdate) {
+
+    // Obtener la película actual de la base de datos
+    const pelicula = await Pelicula.findById(id).populate('plataformas')
+    if (!pelicula) {
       return res.status(404).json({ error: 'Película no encontrada' })
     }
+
+    // Combinar las plataformas actuales con las nuevas, evitando duplicados
+    const nuevasPlataformas = req.body.plataformas || []
+    const plataformasExistentes = pelicula.plataformas.map((plataforma) =>
+      plataforma.toString()
+    )
+
+    // Evitar duplicados combinando las plataformas existentes y las nuevas
+    const plataformasCombinadas = [
+      ...new Set([...plataformasExistentes, ...nuevasPlataformas])
+    ]
+
+    // Actualizar la película con las plataformas combinadas
+    const peliculaUpdate = await Pelicula.findByIdAndUpdate(
+      id,
+      {
+        ...req.body,
+        plataformas: plataformasCombinadas
+      },
+      {
+        new: true,
+        runValidators: true
+      }
+    ).populate('plataformas')
+
     return res.status(200).json(peliculaUpdate)
   } catch (error) {
     return res.status(400).json({ error: error.message })

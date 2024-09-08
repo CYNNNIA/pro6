@@ -41,6 +41,7 @@ const peliculasSchema = new mongoose.Schema(
 )
 
 peliculasSchema.pre('save', function (next) {
+  // Eliminar duplicados en plataformas antes de guardar
   this.plataformas = [
     ...new Set(this.plataformas.map((plataforma) => plataforma.toString()))
   ]
